@@ -1,11 +1,13 @@
 // pages/user/user.js
-Page({
 
+var global = getApp()
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    isLogin: false,
   },
 
   /**
@@ -26,7 +28,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      isLogin: global.globalData.isLogin
+    })
   },
 
   /**
@@ -62,5 +66,42 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  /**
+   * 向服务器发送注册请求
+   */
+  register: function () {
+    // 先拿到 code
+    wx.login({
+      success: loginRes => {
+        // 再获取用户信息
+        wx.getUserInfo({
+          success: userRes => {
+            // 最后发出注册请求                        
+            wx.request({
+              url: global.globalData.serverURL + '/register/',
+              data: {
+                code: loginRes.code,
+                name: userRes['userInfo']['nickName'],
+                sex: userRes['userInfo']['gender'],
+                region: userRes['userInfo']['province']
+              },
+              // 注册请求成功后处理
+              success: res => {
+                this.setData({
+                  isLogin: true
+                })
+              }
+            })
+          }
+        })
+      }
+    })
+  },
+  /**
+   * 用户点击授权登录按钮后
+   */
+  getUserInfo: function (res) {
+    this.register()
   }
 })

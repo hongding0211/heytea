@@ -8,7 +8,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "HeyTea",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#ffffff"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
