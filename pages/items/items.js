@@ -7,21 +7,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    drinksInfo:[],
-    drinksInfoLoaded: false
+    drinksInfo: [],
+    categoriesInfo: [],
+    drinksInfoLoaded: false,
+    categoriesInfoLoaded: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {      
+  onLoad: function (options) {
+    this.fetchCategoriesInfo()
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
@@ -74,20 +78,46 @@ Page({
   /**
    * 获取所有饮品信息
    */
-  fetchDrinksInfo: function(){
+  fetchDrinksInfo: function () {
     wx.request({
       url: global.globalData.serverURL + '/getdrink/',
-      success: res=>{
-        if(res['data']['code']==200){
+      success: res => {
+        if (res['data']['code'] == 200) {
           this.setData({
-            drinksInfo: res['data']['data']            
-          })
-          console.log(this.data.drinksInfo)
-          this.setData({
+            drinksInfo: res['data']['data'],
             drinksInfoLoaded: true
           })
+          console.log(this.data.drinksInfo)
         }
       }
     })
+  },
+  /**
+   * 获取所有分类信息
+   */
+  fetchCategoriesInfo: function () {
+    wx.request({
+      url: global.globalData.serverURL + '/getcategory/',
+      success: res => {
+        if (res['data']['code'] == 200) {       
+          res['data']['data'].forEach(function(item,index){
+              item['activeImage'] = item['imgName']
+              item['defaultImage'] = item['imgName']
+          })
+          this.setData({
+            categoriesInfo: res['data']['data'],                        
+            categoriesInfoLoaded: true
+          })
+          console.log(this.data.categoriesInfo)
+        }
+      }
+    })
+  },
+  /**
+   * 切换标签，tapic
+   */
+  tabchanged: function() {
+    wx.vibrateShort({      
+    });
   }
 })

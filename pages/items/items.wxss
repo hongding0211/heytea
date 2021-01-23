@@ -3,3 +3,32 @@
 .l-container{
   background: #f1f1f1 !important;
 }
+
+
+/* 选中装饰线 */
+.line-class {  
+  background: #D5A674 !important;
+  width: 10rpx !important;
+  height: auto !important;
+  
+}
+
+.common{
+  max-height: 130rpx;
+}
+
+.class-active{
+  font-weight: 900 !important;
+}
+
+.inactive-class{
+  font-weight: 400 !important;
+}
+
+
+.tab-image {
+  width: 38rpx !important;
+  height: 38rpx !important;
+  padding: 10rpx !important;
+}
+
