@@ -2,7 +2,8 @@
   "pages": [
     "pages/items/items",
     "pages/orders/orders",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/cart/cart"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -24,6 +25,12 @@
         "pagePath": "pages/items/items",
         "iconPath": "/src/icon/drink.png",
         "selectedIconPath": "/src/icon/drink_selected.png"
+      }, 
+      {
+        "text": "购物车",
+        "pagePath": "pages/cart/cart",
+        "iconPath": "/src/icon/cart.png",
+        "selectedIconPath": "/src/icon/cart_selected.png"
       },
       {
         "text": "订单",
@@ -38,5 +45,7 @@
         "selectedIconPath": "/src/icon/user_selected.png"
       }
     ]
+  },
+  "usingComponents": {
   }
 }

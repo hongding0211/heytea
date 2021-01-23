@@ -1,2 +1,6 @@
-<!--pages/items/items.wxml-->
-<text>pages/items/items.wxml</text>
+<!-- pages/items/items.wxml -->
+
+
+<l-loading size="mini" color="#333333" l-container-class="l-container" show="{{!drinksInfoLoaded}}" full-screen="{{true}}"></l-loading>
+
+

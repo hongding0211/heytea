@@ -1,18 +1,20 @@
 // pages/items/items.js
+var global = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    drinksInfo:[],
+    drinksInfoLoaded: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function (options) {      
   },
 
   /**
@@ -26,7 +28,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-        
+    // ONLY FOR DEBUG
+    // wx.login({
+    //   success: res=>{
+    //     console.log(res)
+    //   }
+    // })
+    this.fetchDrinksInfo()
   },
 
   /**
@@ -62,5 +70,24 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  /**
+   * 获取所有饮品信息
+   */
+  fetchDrinksInfo: function(){
+    wx.request({
+      url: global.globalData.serverURL + '/getdrink/',
+      success: res=>{
+        if(res['data']['code']==200){
+          this.setData({
+            drinksInfo: res['data']['data']            
+          })
+          console.log(this.data.drinksInfo)
+          this.setData({
+            drinksInfoLoaded: true
+          })
+        }
+      }
+    })
   }
 })
