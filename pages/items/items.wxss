@@ -32,3 +32,27 @@
   padding: 10rpx !important;
 }
 
+.card{
+  height: 200rpx;
+}
+
+.card-image{
+  width: 130rpx !important;
+  height: 130rpx !important;
+}
+
+.card-title{
+  font-size: medium !important;
+  font-weight: 900 !important;
+
+}
+
+.card-intro{
+  font-size: small !important;
+  color: #b6b6b6 !important;
+}
+
+.card-price{
+  font-size: large;
+  font-weight: 900;
+}

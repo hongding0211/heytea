@@ -33,15 +33,34 @@
 
 			<!-- 人气榜 -->
 			<view view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
-				<l-card wx:if="{{drinkItem['rank']>0&&categoryItem['categoryID']==-1}}">
-					{{drinkItem['drinkName']}}
-				</l-card>
+				<l-card
+				 wx:if="{{drinkItem['rank']>0&&categoryItem['categoryID']==-1}}"
+				 type="primary"
+				 image="{{drinkItem['imgLink']}}"
+				 image-mode="aspectFill"
+				 l-img-class="card-image"
+				 l-title-class="card-title"
+				 title="{{drinkItem['drinkName']}}"
+                />
+                <view class="card-intro">
+                    {{drinkItem['intro']}}
+                </view>
 			</view>
 
 			<!-- 按照分类添加 -->
 			<view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
-				<l-card wx:if="{{drinkItem['categoryID']==categoryItem['categoryID']}}">
-					{{drinkItem['drinkName']}}
+				<l-card
+				 wx:if="{{drinkItem['categoryID']==categoryItem['categoryID']}}"
+				 type="primary"
+				 image="{{drinkItem['imgLink']}}"
+				 image-mode="aspectFill"
+				 l-img-class="card-image"
+				 l-title-class="card-title"
+				 title="{{drinkItem['drinkName']}}"
+				>
+                <view class="card-intro">
+                    {{drinkItem['intro']}}
+                </view>
 				</l-card>
 			</view>
 
