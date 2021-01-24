@@ -43,6 +43,7 @@
     "l-card":"/miniprogram_npm/lin-ui/card/index", 
     "l-loading": "/miniprogram_npm/lin-ui/loading/index",
     "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
-    "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index"
+    "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index",
+    "l-button":"/miniprogram_npm/lin-ui/button/index"
   }
 }

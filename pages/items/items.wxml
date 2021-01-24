@@ -1,4 +1,5 @@
 <!-- pages/items/items.wxml -->
+
 <!-- 数据未完成加载时的 loading 画面 -->
 <l-loading
  size="mini"
@@ -8,18 +9,18 @@
  full-screen="{{true}}"
 />
 
-<view style="height:100vh">
+<view style="height:{{contentHeight}}rpx">
 	<l-tabs
 	 placement="left"
 	 l-class-active="class-active common"
 	 l-inactive-class="inactive-class common"
 	 l-line-class="line-class"
 	 l-class-tabimage="tab-image"
-	 bind:linchange="tabchanged"
-	 swipeable="true"
-	 scrollable="true"
-	 animated-for-line="true"
 	 content-height="{{contentHeight}}"
+	 bind:linchange="tabchanged"
+	 animated-for-line="true"
+	 scrollable="true"
+	 swipeable="true"
 	>
 		<l-tabpanel
 		 wx:for="{{categoriesInfo}}"
@@ -31,39 +32,68 @@
 		 pic-placement="top"
 		>
 
-			<!-- 人气榜 -->
-			<view view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
-				<l-card
-				 wx:if="{{drinkItem['rank']>0&&categoryItem['categoryID']==-1}}"
-				 type="primary"
-				 image="{{drinkItem['imgLink']}}"
-				 image-mode="aspectFill"
-				 l-img-class="card-image"
-				 l-title-class="card-title"
-				 title="{{drinkItem['drinkName']}}"
-                />
-                <view class="card-intro">
-                    {{drinkItem['intro']}}
-                </view>
-			</view>
+			<scroll-view scroll-y="true" style="height:100%">
 
-			<!-- 按照分类添加 -->
-			<view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
-				<l-card
-				 wx:if="{{drinkItem['categoryID']==categoryItem['categoryID']}}"
-				 type="primary"
-				 image="{{drinkItem['imgLink']}}"
-				 image-mode="aspectFill"
-				 l-img-class="card-image"
-				 l-title-class="card-title"
-				 title="{{drinkItem['drinkName']}}"
-				>
-                <view class="card-intro">
-                    {{drinkItem['intro']}}
-                </view>
-				</l-card>
-			</view>
+				<view class="category-title">{{categoryItem['categoryName']}}</view>
+				<!-- 人气榜 -->
+				<view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
+					<l-card
+					 wx:if="{{drinkItem['rank']>0&&categoryItem['categoryID']==-1}}"
+					 type="primary"
+					 image="{{drinkItem['imgLink']}}"
+					 image-mode="aspectFill"
+					 l-class="card"
+					 l-img-class="card-image"
+					 l-title-class="card-title"
+					 title="{{drinkItem['drinkName']}}"
+					>
+						<view class="card-intro">
+							{{drinkItem['intro']}}
+						</view>
+						<view class="card-container">
+							<view class="card-price">￥{{drinkItem['price']}}</view>
+							<l-button
+							 width="90"
+							 height="40"
+							 shape="semicircle"
+							 bg-color="#DBA871"
+							>
+								<text class="button">选规格</text>
+							</l-button>
+						</view>
+					</l-card>
+				</view>
 
+				<!-- 按照分类添加 -->
+				<view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
+					<l-card
+					 wx:if="{{drinkItem['categoryID']==categoryItem['categoryID']}}"
+					 type="primary"
+					 image="{{drinkItem['imgLink']}}"
+					 image-mode="aspectFill"
+					 l-class="card"
+					 l-img-class="card-image"
+					 l-title-class="card-title"
+					 title="{{drinkItem['drinkName']}}"
+					>
+						<view class="card-intro">
+							{{drinkItem['intro']}}
+						</view>
+						<view class="card-container">
+							<view class="card-price">￥{{drinkItem['price']}}</view>
+							<l-button
+							 width="90"
+							 height="40"
+							 shape="semicircle"
+							 bg-color="#DBA871"
+							>
+								<text class="button">选规格</text>
+							</l-button>
+						</view>
+					</l-card>
+				</view>
+
+			</scroll-view>
 		</l-tabpanel>
 	</l-tabs>
 </view>

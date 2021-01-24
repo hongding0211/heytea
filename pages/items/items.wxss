@@ -5,9 +5,8 @@
 }
 
 
-/* 选中装饰线 */
 .line-class {  
-  background: #D5A674 !important;
+  background: #DBA871 !important;
   width: 10rpx !important;
   height: auto !important;
   
@@ -32,8 +31,17 @@
   padding: 10rpx !important;
 }
 
+.category-title {
+  margin-left: 30rpx !important;
+  margin-top: 30rpx !important;
+  margin-bottom: 20rpx !important;
+  font-size: small;
+  color: #b6b6b6;
+}
+
 .card{
-  height: 200rpx;
+  height: 240rpx !important;
+  margin-bottom: 10rpx !important;
 }
 
 .card-image{
@@ -44,15 +52,33 @@
 .card-title{
   font-size: medium !important;
   font-weight: 900 !important;
-
+  margin-bottom: 10rpx !important;
 }
 
 .card-intro{
-  font-size: small !important;
-  color: #b6b6b6 !important;
+  font-size: x-small !important;
+  color: #b6b6b6 !important;  
+  margin-bottom: 20rpx !important;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2;
+}
+
+.card-container{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
 }
 
 .card-price{
   font-size: large;
-  font-weight: 900;
+  font-weight: 600;
+}
+
+.button{
+  font-size: x-small;
 }
