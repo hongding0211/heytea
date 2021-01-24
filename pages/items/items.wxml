@@ -1,24 +1,51 @@
 <!-- pages/items/items.wxml -->
-
 <!-- 数据未完成加载时的 loading 画面 -->
-<l-loading size="mini" color="#333333" l-container-class="l-container"
-  show="{{!drinksInfoLoaded||!categoriesInfoLoaded}}" full-screen="{{true}}"></l-loading>
+<l-loading
+ size="mini"
+ color="#333333"
+ l-container-class="l-container"
+ show="{{!drinksInfoLoaded||!categoriesInfoLoaded}}"
+ full-screen="{{true}}"
+/>
 
 <view style="height:100vh">
-  <l-tabs placement="left" 
-          animated="true"
-          l-class-active="class-active common" 
-          l-inactive-class="inactive-class common" 
-          l-line-class="line-class"
-          l-class-tabimage="tab-image" 
-          bind:linchange="tabchanged" 
-          scrollable="true"
-          swipeable="true" 
-          animated-for-line="true"
-          content-height="3000">
-    <l-tabpanel wx:for="{{categoriesInfo}}" key="{{item.categoryID}}" tab="{{item.categoryName}}"
-      slot="{{item.categoryID}}" image="{{item}}" pic-placement="top">
-      
-    </l-tabpanel>
-  </l-tabs>
+	<l-tabs
+	 placement="left"
+	 l-class-active="class-active common"
+	 l-inactive-class="inactive-class common"
+	 l-line-class="line-class"
+	 l-class-tabimage="tab-image"
+	 bind:linchange="tabchanged"
+	 swipeable="true"
+	 scrollable="true"
+	 animated-for-line="true"
+	 content-height="{{contentHeight}}"
+	>
+		<l-tabpanel
+		 wx:for="{{categoriesInfo}}"
+		 wx:for-item="categoryItem"
+		 key="{{categoryItem.categoryID}}"
+		 tab="{{categoryItem.categoryName}}"
+		 slot="{{categoryItem.categoryID}}"
+		 image="{{categoryItem}}"
+		 pic-placement="top"
+		>
+
+			<!-- 人气榜 -->
+			<view view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
+				<l-card wx:if="{{drinkItem['rank']>0&&categoryItem['categoryID']==-1}}">
+					{{drinkItem['drinkName']}}
+				</l-card>
+			</view>
+
+			<!-- 按照分类添加 -->
+			<view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
+				<l-card wx:if="{{drinkItem['categoryID']==categoryItem['categoryID']}}">
+					{{drinkItem['drinkName']}}
+				</l-card>
+			</view>
+
+		</l-tabpanel>
+	</l-tabs>
 </view>
+

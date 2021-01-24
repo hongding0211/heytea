@@ -11,6 +11,7 @@ Page({
     categoriesInfo: [],
     drinksInfoLoaded: false,
     categoriesInfoLoaded: false,
+    contentHeight: 0
   },
 
   /**
@@ -18,7 +19,13 @@ Page({
    */
   onLoad: function (options) {
     this.fetchCategoriesInfo()
-    
+    wx.getSystemInfo({
+      success: (result)=>{
+        this.setData({
+          contentHeight: result.windowHeight*750/result.windowWidth
+        })
+      }
+    });
   },
 
   /**

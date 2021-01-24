@@ -33,12 +33,6 @@
         "selectedIconPath": "/src/icon/cart_selected.png"
       },
       {
-        "text": "订单",
-        "pagePath": "pages/orders/orders",
-        "iconPath": "/src/icon/orders.png",
-        "selectedIconPath": "/src/icon/orders_selected.png"
-      },
-      {
         "text": "我的",
         "pagePath": "pages/user/user",
         "iconPath": "/src/icon/user.png",
@@ -47,5 +41,9 @@
     ]
   },
   "usingComponents": {
+    "l-card":"/miniprogram_npm/lin-ui/card/index", 
+    "l-loading": "/miniprogram_npm/lin-ui/loading/index",
+    "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
+    "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index"
   }
 }
