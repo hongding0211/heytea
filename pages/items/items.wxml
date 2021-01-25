@@ -121,6 +121,32 @@
 		<view class="popup-container">
 			<view class="popup-top-elements">
 				<text class="popup-intro">{{currentChoseDrink['intro']}}</text>
+				<scroll-view class="popup-scroll" scroll-y="{{true}}">
+					<view class="popup-option-title">甜度</view>
+					<view class="popup-option-container">
+						<l-button
+						 wx:for="{{sugarOption}}"
+						 data-sugarchecked="{{index}}"
+						 bind:lintap="handleSugarCheck"
+						 size="mini"
+						 l-class="{{index==sugarChecked?'popup-option-button-checked':'popup-option-button-unchecked'}}"
+						>
+							{{item}}
+						</l-button>
+					</view>
+					<view class="popup-option-title">状态</view>
+					<view class="popup-option-container">
+						<l-button
+						 wx:for="{{tempOption}}"
+						 data-tempchecked="{{index}}"
+						 bind:lintap="handleTempCheck"
+						 size="mini"
+						 l-class="{{index==tempChecked?'popup-option-button-checked':'popup-option-button-unchecked'}}"
+						>
+							{{item}}
+						</l-button>
+					</view>
+				</scroll-view>
 			</view>
 			<view class="popup-bottom-elemens">
 				<view class="divLine" />
@@ -129,7 +155,7 @@
 						￥{{currentChoseDrink['price']}}
 					</view>
 					<l-counter
-					l-count-class="popup-conter"
+					 l-count-class="popup-conter"
 					 l-symbol-class="popup-symbol-conter"
 					 l-disabled-class="popup-conter-disable"
 					 count="1"

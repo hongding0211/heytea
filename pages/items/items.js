@@ -13,7 +13,15 @@ Page({
     categoriesInfoLoaded: false,
     contentHeight: 0,
     tapped: false,
-    currentChoseDrink:{}
+    currentChoseDrink: {},
+    sugarOption: [
+      '全糖', '7分', '5分', '3分', '无糖',
+    ],
+    tempOption: [
+      '正常冰', '少冰', '去冰', '常温', '热'
+    ],
+    sugarChecked: 0,
+    tempChecked: 0
   },
 
   /**
@@ -22,9 +30,9 @@ Page({
   onLoad: function (options) {
     this.fetchCategoriesInfo()
     wx.getSystemInfo({
-      success: (result)=>{
+      success: (result) => {
         this.setData({
-          contentHeight: result.windowHeight*750/result.windowWidth
+          contentHeight: result.windowHeight * 750 / result.windowWidth
         })
       }
     })
@@ -40,7 +48,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {    
+  onShow: function () {
     this.fetchDrinksInfo()
   },
 
@@ -103,14 +111,14 @@ Page({
     wx.request({
       url: global.globalData.serverURL + '/getcategory/',
       success: res => {
-        if (res['data']['code'] == 200) {   
-          global.globalData.categoriesInfo = res['data']['data']    
-          res['data']['data'].forEach(function(item,index){
-              item['activeImage'] = item['imgName']
-              item['defaultImage'] = item['imgName']
+        if (res['data']['code'] == 200) {
+          global.globalData.categoriesInfo = res['data']['data']
+          res['data']['data'].forEach(function (item, index) {
+            item['activeImage'] = item['imgName']
+            item['defaultImage'] = item['imgName']
           })
           this.setData({
-            categoriesInfo: res['data']['data'],                        
+            categoriesInfo: res['data']['data'],
             categoriesInfoLoaded: true
           })
           console.log(this.data.categoriesInfo)
@@ -121,17 +129,17 @@ Page({
   /**
    * 切换标签，tapic
    */
-  tabchanged: function() {
-    wx.vibrateShort({      
+  tabchanged: function () {
+    wx.vibrateShort({
     });
   },
   /**
    * 用户点开一个饮品
    */
-  handleChoosespecs: function(e){
+  handleChoosespecs: function (e) {
     var drinkID = (e['currentTarget']['dataset']['drinkid'])
     this.data.drinksInfo.forEach(drink => {
-      if(drinkID==drink['drinkID']){
+      if (drinkID == drink['drinkID']) {
         this.setData({
           currentChoseDrink: drink,
           tapped: true
@@ -139,9 +147,30 @@ Page({
       }
     })
   },
-  handleExitDetail: function(){
+  /**
+   * 点击背景推出详细页面
+   */
+  handleExitDetail: function () {
     this.setData({
+      sugarChecked: 0,
+      tempChecked: 0,
       tapped: false
     })
   },
+  /**
+   * 点击糖度
+   */
+  handleSugarCheck: function (e) {
+    this.setData({
+      sugarChecked: e['currentTarget']['dataset']['sugarchecked']
+    })
+  },
+  /**
+   * 点击温度
+   */
+  handleTempCheck: function (e) {
+    this.setData({
+      tempChecked: e['currentTarget']['dataset']['tempchecked']
+    })
+  }
 })
