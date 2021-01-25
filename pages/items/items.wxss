@@ -82,3 +82,69 @@
 .button{
   font-size: x-small;
 }
+
+.popup-card{
+  width: 600rpx !important;
+  padding-top: 10rpx !important;
+  padding-bottom: 10rpx !important;
+}
+
+.popup-img{
+  margin-bottom: 50rpx !important;
+  min-height: 250rpx !important;
+}
+
+.popup-title{
+  font-size: medium !important;
+  font-weight: 900 !important;
+}
+
+.popup-container{
+  min-height: 400rpx;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.popup-intro{
+  font-size: small !important;
+  font-weight: 400 !important;
+  color: #b6b6b6 !important;
+}
+
+.popup-top-elements{
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
+}
+
+.popup-bottom-elemens{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-price-count{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.divLine{
+  background: #dbdbdb;
+  width: 100%;
+  height: 2rpx;
+ }
+
+ .popup-price-text{
+   font-size: large;
+   font-weight: 500;
+   color: #DBA871;
+ }

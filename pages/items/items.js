@@ -11,7 +11,9 @@ Page({
     categoriesInfo: [],
     drinksInfoLoaded: false,
     categoriesInfoLoaded: false,
-    contentHeight: 0
+    contentHeight: 0,
+    tapped: false,
+    currentChoseDrink:{}
   },
 
   /**
@@ -19,7 +21,6 @@ Page({
    */
   onLoad: function (options) {
     this.fetchCategoriesInfo()
-    this.fetchDrinksInfo()
     wx.getSystemInfo({
       success: (result)=>{
         this.setData({
@@ -39,8 +40,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function () {    
+    this.fetchDrinksInfo()
   },
 
   /**
@@ -123,5 +124,24 @@ Page({
   tabchanged: function() {
     wx.vibrateShort({      
     });
-  }
+  },
+  /**
+   * 用户点开一个饮品
+   */
+  handleChoosespecs: function(e){
+    var drinkID = (e['currentTarget']['dataset']['drinkid'])
+    this.data.drinksInfo.forEach(drink => {
+      if(drinkID==drink['drinkID']){
+        this.setData({
+          currentChoseDrink: drink,
+          tapped: true
+        })
+      }
+    })
+  },
+  handleExitDetail: function(){
+    this.setData({
+      tapped: false
+    })
+  },
 })
