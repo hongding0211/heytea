@@ -86,7 +86,7 @@
 .popup-card{
   width: 600rpx !important;
   padding-top: 10rpx !important;
-  padding-bottom: 10rpx !important;
+  padding-bottom: 5rpx !important;
 }
 
 .popup-img{
@@ -128,8 +128,8 @@
 }
 
 .popup-price-count{
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -148,3 +148,34 @@
    font-weight: 500;
    color: #DBA871;
  }
+
+
+ .popup-conter{
+   background-color: #ffffff !important;
+   color: #000000 !important;
+   width: 30rpx !important;
+   font-size: medium !important;
+   font-weight: 900 !important;
+ }
+
+ .popup-symbol-conter{
+   margin: 5rpx !important;
+   padding: 15rpx !important;
+   width: 10rpx !important;
+   height: 10rpx !important;
+   color:#ffffff !important;
+   background-color: #DBA871 !important;
+   border-radius: 50% !important;
+ }
+
+ .popup-conter-disable{
+   margin: 5rpx !important;
+   padding: 10rpx !important;
+   width: 20rpx !important;
+   height: 20rpx !important;
+   color: #b6b6b6 !important;
+   background-color: #ffffff !important;
+   border-radius: 50% !important;
+   border-color: #b6b6b6 !important;
+ }
+

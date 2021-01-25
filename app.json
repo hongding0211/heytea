@@ -49,6 +49,7 @@
     "l-loadmore":"/miniprogram_npm/lin-ui/loadmore/index",
     "l-popup":"/miniprogram_npm/lin-ui/popup/index",
     "l-sticky":"/miniprogram_npm/lin-ui/sticky/index",
-    "l-counter":"/miniprogram_npm/lin-ui/counter/index"
+    "l-counter":"/miniprogram_npm/lin-ui/counter/index",    
+    "van-popup": "@vant/weapp/popup/index"
   }
 }

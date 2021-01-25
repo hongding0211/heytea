@@ -102,38 +102,51 @@
 	</l-tabs>
 </view>
 
-<l-popup show="{{tapped}}" bind:lintap="handleExitDetail">
+<van-popup
+ show="{{tapped}}"
+ position="center"
+ bind:close="handleExitDetail"
+ round="true"
+ closeable="true"
+>
 	<l-card
-	  type="cover"
-	  image="{{currentChoseDrink['imgLink']}}"
-	  title="{{currentChoseDrink['drinkName']}}"
-	  image-mode="aspectFit"
-	  l-class="popup-card"
-	  l-img-class="popup-img"
-	  l-title-class="popup-title"
+	 type="cover"
+	 image="{{currentChoseDrink['imgLink']}}"
+	 title="{{currentChoseDrink['drinkName']}}"
+	 image-mode="aspectFit"
+	 l-class="popup-card"
+	 l-img-class="popup-img"
+	 l-title-class="popup-title"
 	>
-	<view class="popup-container">
-		<view class="popup-top-elements">
-			<text class="popup-intro">{{currentChoseDrink['intro']}}</text>
-		</view>
-		<view class="popup-bottom-elemens">
-			<view class="divLine"/>
-			<view class="popup-price-count">
-				<view class="popup-price-text">
-					￥{{currentChoseDrink['price']}}
-				</view>
-				<l-counter count="1" min="1" max="1000"/>
+		<view class="popup-container">
+			<view class="popup-top-elements">
+				<text class="popup-intro">{{currentChoseDrink['intro']}}</text>
 			</view>
-			<l-button
-				shape="circle"
-				bg-color="#DBA871"
-				width="550"
-				height="70"
-			>
-				加入购物车
-			</l-button>
+			<view class="popup-bottom-elemens">
+				<view class="divLine" />
+				<view class="popup-price-count">
+					<view class="popup-price-text">
+						￥{{currentChoseDrink['price']}}
+					</view>
+					<l-counter
+					l-count-class="popup-conter"
+					 l-symbol-class="popup-symbol-conter"
+					 l-disabled-class="popup-conter-disable"
+					 count="1"
+					 min="1"
+					 max="1000"
+					/>
+				</view>
+				<l-button
+				 shape="circle"
+				 bg-color="#DBA871"
+				 width="550"
+				 height="70"
+				>
+					加入购物车
+				</l-button>
+			</view>
 		</view>
-	</view>
 	</l-card>
-</l-popup>
+</van-popup>
 

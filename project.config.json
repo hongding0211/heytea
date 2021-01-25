@@ -36,7 +36,9 @@
     "userConfirmedUseCompilerModuleSwitch": false,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": [],
+    "packNpmRelationList": [
+      
+    ],
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
