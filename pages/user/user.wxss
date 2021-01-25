@@ -1,6 +1,5 @@
 /* pages/user/user.wxss */
 
-
 .user-card{
   margin-top: 20rpx !important;
   margin-bottom: 40rpx !important;
@@ -73,3 +72,9 @@
   color: #b6b6b6;
 }
 
+
+.order-card{
+  margin-top: 20rpx !important;
+  margin-bottom: 20rpx !important;
+  height: 300rpx !important;
+}

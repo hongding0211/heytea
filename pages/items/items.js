@@ -19,13 +19,14 @@ Page({
    */
   onLoad: function (options) {
     this.fetchCategoriesInfo()
+    this.fetchDrinksInfo()
     wx.getSystemInfo({
       success: (result)=>{
         this.setData({
           contentHeight: result.windowHeight*750/result.windowWidth
         })
       }
-    });
+    })
   },
 
   /**
@@ -39,13 +40,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // ONLY FOR DEBUG
-    // wx.login({
-    //   success: res=>{
-    //     console.log(res)
-    //   }
-    // })
-    this.fetchDrinksInfo()
+
   },
 
   /**
@@ -90,6 +85,7 @@ Page({
       url: global.globalData.serverURL + '/getdrink/',
       success: res => {
         if (res['data']['code'] == 200) {
+          global.globalData.drinksInfo = res['data']['data']
           this.setData({
             drinksInfo: res['data']['data'],
             drinksInfoLoaded: true
@@ -106,7 +102,8 @@ Page({
     wx.request({
       url: global.globalData.serverURL + '/getcategory/',
       success: res => {
-        if (res['data']['code'] == 200) {       
+        if (res['data']['code'] == 200) {   
+          global.globalData.categoriesInfo = res['data']['data']    
           res['data']['data'].forEach(function(item,index){
               item['activeImage'] = item['imgName']
               item['defaultImage'] = item['imgName']

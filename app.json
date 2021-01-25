@@ -47,6 +47,7 @@
     "l-button":"/miniprogram_npm/lin-ui/button/index",
     "l-avatar":"/miniprogram_npm/lin-ui/avatar/index",
     "l-loadmore":"/miniprogram_npm/lin-ui/loadmore/index",
-    "l-popup":"/miniprogram_npm/lin-ui/popup/index"
+    "l-popup":"/miniprogram_npm/lin-ui/popup/index",
+    "l-sticky":"/miniprogram_npm/lin-ui/sticky/index"
   }
 }

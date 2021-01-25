@@ -2,20 +2,37 @@
 
 var global = getApp()
 
+
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     isLogin: false,
-    isClickedButton: false
+    isClickedButton: false,
+    transactionDetail: {},
+    drinksInfo: [],
+    categoriesInfo: [],
+    contentHeight: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.getSystemInfo({
+      success: (result)=>{
+        this.setData({
+          contentHeight: result.windowHeight*750/result.windowWidth
+        })
+      }
+    })
+    // 从全局变量中，拿出饮品、分类信息
+    this.setData({
+      drinksInfo: global.globalData.drinksInfo,
+      categoriesInfo: global.globalData.categoriesInfo
+    })
   },
 
   /**
@@ -29,10 +46,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
     this.setData({
       isLogin: global.globalData.isLogin,
       isClickedButton: false
     })
+    this.fetchTransactionDetail()
   },
 
   /**
@@ -108,5 +127,27 @@ Page({
     this.setData({
       isClickedButton: true
     })
+  },
+  /**
+   * 获取用户订单信息
+   */
+  fetchTransactionDetail: function () {
+    wx.login({
+      success: (loginRes) => {
+        wx.request({
+          url: global.globalData.serverURL + '/getTransactionDetail/',
+          data: {
+            code: loginRes.code
+          },
+          success: res => {
+            if (res['data']['code'] == 200) {
+              this.setData({
+                transactionDetail: res['data']['data']
+              })
+            }
+          }
+        })
+      }
+    });
   }
 })

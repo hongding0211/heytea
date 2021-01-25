@@ -21,9 +21,9 @@
 				 open-type="getUserInfo"
 				 bind:lintap="getUserInfo"
 				 shape="semicircle"
-         plain="true"
-         loading="{{!isLogin&&isClickedButton}}"
-         l-class="authorize-button"
+				 plain="true"
+				 loading="{{!isLogin&&isClickedButton}}"
+				 l-class="authorize-button"
 				>
 					授权登录
 				</l-button>
@@ -34,16 +34,17 @@
 	</l-card>
 
 	<!-- 历史订单显示 -->
-	<view class="orders-title">历史订单</view>
+	<scroll-view style="height:{{contentHeight-290}}rpx" scroll-y="{{true}}" enable-back-to-top="true">
+		<view class="orders-title">历史订单</view>
 
-	<l-loadmore
-	 show="{{true}}"
-	 type="end"
-	 size="24"
-	 line="{{true}}"
-	 color="#b6b6b6"
-	 end-text="暂无更多订单"
-	/>
-
+		<l-loadmore
+		 show="{{true}}"
+		 type="end"
+		 size="24"
+		 line="{{true}}"
+		 color="#b6b6b6"
+		 end-text="暂无更多订单"
+		/>
+	</scroll-view>
 </view>
 

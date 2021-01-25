@@ -22,6 +22,8 @@ App({
   globalData: {
     serverURL: 'https://gcp.hong97.ltd',
     // serverURL: 'http://192.168.31.67:8080',
-    isLogin: false
+    isLogin: false,
+    drinksInfo: [],
+    categoriesInfo: []
   }
 })

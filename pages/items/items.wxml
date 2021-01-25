@@ -32,7 +32,7 @@
 		 pic-placement="top"
 		>
 
-			<scroll-view scroll-y="true" style="height:100%">
+			<scroll-view scroll-y="true" style="height:100%" enable-back-to-top="true">
 
 				<view class="category-title">{{categoryItem['categoryName']}}</view>
 				<!-- 人气榜 -->
