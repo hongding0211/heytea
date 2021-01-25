@@ -116,7 +116,7 @@
 }
 
 .popup-option-title{
-  font-size: small;
+  font-size: x-small;
   color: #b6b6b6;
   margin-bottom: 20rpx;
 }
