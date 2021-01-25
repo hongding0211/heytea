@@ -44,6 +44,9 @@
     "l-loading": "/miniprogram_npm/lin-ui/loading/index",
     "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
     "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index",
-    "l-button":"/miniprogram_npm/lin-ui/button/index"
+    "l-button":"/miniprogram_npm/lin-ui/button/index",
+    "l-avatar":"/miniprogram_npm/lin-ui/avatar/index",
+    "l-loadmore":"/miniprogram_npm/lin-ui/loadmore/index",
+    "l-popup":"/miniprogram_npm/lin-ui/popup/index"
   }
 }

@@ -8,6 +8,7 @@ Page({
    */
   data: {
     isLogin: false,
+    isClickedButton: false
   },
 
   /**
@@ -29,7 +30,8 @@ Page({
    */
   onShow: function () {
     this.setData({
-      isLogin: global.globalData.isLogin
+      isLogin: global.globalData.isLogin,
+      isClickedButton: false
     })
   },
 
@@ -103,5 +105,8 @@ Page({
    */
   getUserInfo: function (res) {
     this.register()
+    this.setData({
+      isClickedButton: true
+    })
   }
 })

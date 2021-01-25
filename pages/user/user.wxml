@@ -1,14 +1,49 @@
 <!--pages/user/user.wxml-->
 
+<view style="height=100%">
 
-<block wx:if="{{isLogin == 1}}">
-  <view class="userinfo">
-    <view class="userinfo-avatar">
-      <open-data type="userAvatarUrl"></open-data>
-    </view>
-    <open-data class="user-nickname" type="userNickName"></open-data>
-  </view>
-</block>
-<block wx:elif="{{isLogin == 0}}">
-  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" plain="true">授权登录</button>
-</block>
+	<!-- 用户信息卡片 -->
+	<l-card l-class="user-card" plaintext="true">
+
+		<!-- 已经成功加载用户信息 -->
+		<view wx:if="{{isLogin}}" class="card-container">
+			<view class="card-userinfo-container">
+				<open-data class="user-name" type="userNickName" />
+				<open-data class="user-region" type="userProvince" />
+			</view>
+			<open-data class="userinfo-avatar" type="userAvatarUrl" />
+		</view>
+
+		<!-- 需要登录 -->
+		<view wx:else class="card-container">
+			<view class="card-authorize-container">
+				<l-button
+				 open-type="getUserInfo"
+				 bind:lintap="getUserInfo"
+				 shape="semicircle"
+         plain="true"
+         loading="{{!isLogin&&isClickedButton}}"
+         l-class="authorize-button"
+				>
+					授权登录
+				</l-button>
+			</view>
+			<l-avatar l-class="userinfo-avatar" icon="user" icon-color="#ffffff" />
+		</view>
+
+	</l-card>
+
+	<!-- 历史订单显示 -->
+	<view class="orders-title">历史订单</view>
+
+	<l-loadmore
+	 show="{{true}}"
+	 type="end"
+	 size="24"
+	 line="{{true}}"
+	 color="#b6b6b6"
+	 end-text="暂无更多订单"
+	/>
+
+</view>
+
