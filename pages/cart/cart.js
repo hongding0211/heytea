@@ -9,14 +9,22 @@ Page({
    */
   data: {
     cart: [],
-    currentTapIndex: 0
+    currentTapIndex: 0,
+    contentHeight: 0,
+    totalPrice: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.getSystemInfo({
+      success: (result) => {
+        this.setData({
+          contentHeight: result.windowHeight * 750 / result.windowWidth
+        })
+      }
+    })
   },
 
   /**
@@ -30,7 +38,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.syncCart()
+    this.syncCart()    
+    this.calcTotalPrice()
   },
 
   /**
@@ -71,6 +80,7 @@ Page({
    * 同步购物车记录
    */
   syncCart: function () {
+    this.calcTotalPrice()
     this.setData({
       cart: global.globalData.cart
     })
@@ -94,5 +104,19 @@ Page({
       global.modifyCountOfItem(index, e['detail']['count'])
     }
     this.syncCart()
+  },
+  /**
+   * 计算总价
+   */
+  calcTotalPrice: function() {
+    var price = 0
+    this.data.cart.forEach((item,index)=>{
+      if(item['checked']){
+        price+=item['count']*item['price']
+      }
+    })
+    this.setData({
+      totalPrice: price
+    })
   }
 })

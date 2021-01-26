@@ -143,27 +143,21 @@ Page({
       if (drinkID == drink['drinkID']) {
         this.setData({
           currentChoseDrink: drink,
+          sugarChecked: 0,
+          tempChecked: 0,
+          currentCount: 1,
           tapped: true
         })
       }
     })
   },
   /**
-   * 重置饮品描述信息
-   */
-  resetFlag: function () {
-    this.setData({
-      sugarChecked: 0,
-      tempChecked: 0,
-      tapped: false,
-      currentCount: 1
-    })
-  },
-  /**
    * 点击背景推出详细页面
    */
   handleExitDetail: function () {
-    this.resetFlag()
+    this.setData({
+      tapped: false
+    })
   },
   /**
    * 点击糖度
@@ -187,8 +181,8 @@ Page({
   handleAdd2Cart: function () {
     var order = {
       'drinkID': this.data.currentChoseDrink['drinkID'],
-      'drinkName':this.data.currentChoseDrink['drinkName'],
-      'imgLink':this.data.currentChoseDrink['imgLink'],
+      'drinkName': this.data.currentChoseDrink['drinkName'],
+      'imgLink': this.data.currentChoseDrink['imgLink'],
       'price': this.data.currentChoseDrink['price'],
       'count': this.data.currentCount,
       'sugarOption': this.data.sugarOption[this.data.sugarChecked],
@@ -196,7 +190,9 @@ Page({
       'checked': true
     }
     global.add2Cart(order)
-    this.resetFlag()
+    this.setData({
+      tapped: false
+    })
   },
   /**
    * 点击计数器

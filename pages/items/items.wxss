@@ -185,7 +185,7 @@
 
  .popup-conter{
    background-color: #ffffff !important;
-   color: #000000 !important;
+   color: #333333 !important;
    width: 30rpx !important;
    font-size: medium !important;
    font-weight: 900 !important;

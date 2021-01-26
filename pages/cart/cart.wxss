@@ -1,8 +1,19 @@
 /* pages/cart/cart.wxss */
 
-.cart-container{
-    padding-top: 40rpx;
-    padding-bottom: 20rpx;
+.cart-bottom-container{
+    height: 100rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;    
+    background-color: #f0f0f0;
+}
+
+.cart-botton-price{
+    padding-left: 40rpx;
+    color: #333333;
+    font-size: large;
+    font-weight: 600;
 }
 
 .card{
@@ -60,7 +71,7 @@
   
  .card-conter{
     background-color: #ffffff !important;
-    color: #000000 !important;
+    color: #333333 !important;
     width: 30rpx !important;
     font-size: medium !important;
     font-weight: 900 !important;
@@ -85,4 +96,8 @@
     background-color: #ffffff !important;
     border-radius: 50% !important;
     border-color: #b6b6b6 !important;
+  }
+
+  .button-text{
+      font-weight: 600 !important;
   }

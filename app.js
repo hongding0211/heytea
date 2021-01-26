@@ -50,7 +50,19 @@ App({
     cart: []
   },
   add2Cart: function (res) {
-    this.globalData.cart.push(res)
+    // 判断是否有一样的，有的话合并进去
+    var flag = false
+    this.globalData.cart.forEach((item, index) => {
+      if (item['drinkID'] == res['drinkID'] && item['sugarOption'] == res['sugarOption']
+        && item['tempOption'] == res['tempOption']) {
+        item['count'] += res['count']
+        item['checked'] = true
+        flag = true
+      }
+    })
+    if (!flag) {
+      this.globalData.cart.push(res)
+    }
     this.updateCartIcon()
   },
   removeFromCart: function (i) {
