@@ -29,7 +29,7 @@ App({
       fail: () => {
         this.globalData.cart = []
       },
-      complete: ()=> {
+      complete: () => {
         this.updateCartIcon()
       }
     })
@@ -54,18 +54,18 @@ App({
     this.updateCartIcon()
   },
   removeFromCart: function (i) {
-    if (this.globalData.cart.length > 0) {
+    if (this.globalData.cart.length > i) {
       this.globalData.cart.splice(i, 1)
     }
     this.updateCartIcon()
   },
   modifyCart: function (i, data) {
-    if (this.globalData.cart.length > 0) {
+    if (this.globalData.cart.length > i) {
       this.globalData.cart[i] = data
     }
     this.updateCartIcon()
   },
-  updateCartIcon: function(){
+  updateCartIcon: function () {
     if (this.globalData.cart.length > 0) {
       wx.showTabBarRedDot({
         index: 1
@@ -74,6 +74,16 @@ App({
       wx.hideTabBarRedDot({
         index: 1
       });
+    }
+  },
+  checkItem: function (i) {
+    if (this.globalData.cart.length > i) {
+      this.globalData.cart[i]['checked'] = !this.globalData.cart[i]['checked']
+    }
+  },
+  modifyCountOfItem: function (i, count) {
+    if (this.globalData.cart.length > i && count >= 1) {
+      this.globalData.cart[i]['count'] = count
     }
   }
 })

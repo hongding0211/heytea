@@ -1,5 +1,47 @@
 <!--pages/cart/cart.wxml-->
 
-<view style="height=100%">
-    
+<view class="cart-container">
+	<l-card l-class="card" plain="true" wx:for="{{cart}}">
+		<view class="card-container">
+			<van-checkbox
+			 value="{{item['checked']}}"
+			 data-cardIndex="{{index}}"
+			 bind:change="handleCheck"
+			 checked-color="#000000"
+			/>
+			<image
+			 class="card-image"
+			 mode="aspectFit"
+			 src="{{item['imgLink']}}"
+			/>
+			<view class="card-text-price-container">
+				<view class="card-text-title">{{item['drinkName']}}</view>
+				<view class="card-text-option">{{item['sugarOption']}} {{item['tempOption']}}</view>
+				<view class="card-price-conter-container">
+					<view class="card-price-text">
+						￥{{item['price']*item['count']}}
+					</view>
+					<l-counter
+					 l-count-class="card-conter"
+					 l-symbol-class="card-symbol-conter"
+					 l-disabled-class="card-conter-disable"
+					 count="{{item['count']}}"
+					 min="0"
+					 max="1000"
+					 data-cardIndex="{{index}}"
+					 bind:lintap="handleCount"
+					/>
+				</view>
+			</view>
+		</view>
+	</l-card>
+	<l-loadmore
+	 show="{{true}}"
+	 type="end"
+	 size="24"
+	 line="{{true}}"
+	 color="#b6b6b6"
+	 end-text="暂无更多"
+	/>
 </view>
+

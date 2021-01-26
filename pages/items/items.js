@@ -187,10 +187,13 @@ Page({
   handleAdd2Cart: function () {
     var order = {
       'drinkID': this.data.currentChoseDrink['drinkID'],
+      'drinkName':this.data.currentChoseDrink['drinkName'],
+      'imgLink':this.data.currentChoseDrink['imgLink'],
       'price': this.data.currentChoseDrink['price'],
       'count': this.data.currentCount,
       'sugarOption': this.data.sugarOption[this.data.sugarChecked],
-      'tempOption': this.data.tempOption[this.data.tempChecked]
+      'tempOption': this.data.tempOption[this.data.tempChecked],
+      'checked': true
     }
     global.add2Cart(order)
     this.resetFlag()

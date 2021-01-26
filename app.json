@@ -50,6 +50,8 @@
     "l-popup":"/miniprogram_npm/lin-ui/popup/index",
     "l-sticky":"/miniprogram_npm/lin-ui/sticky/index",
     "l-counter":"/miniprogram_npm/lin-ui/counter/index",    
-    "van-popup": "@vant/weapp/popup/index"
+    "van-popup": "@vant/weapp/popup/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index"
   }
 }

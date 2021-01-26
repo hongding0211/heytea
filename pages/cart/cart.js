@@ -9,6 +9,7 @@ Page({
    */
   data: {
     cart: [],
+    currentTapIndex: 0
   },
 
   /**
@@ -28,7 +29,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {    
+  onShow: function () {
     this.syncCart()
   },
 
@@ -67,26 +68,31 @@ Page({
 
   },
   /**
-   * 修改购物车信息，以便更好生成
+   * 同步购物车记录
    */
   syncCart: function () {
-    var _cart = global.globalData.cart
-    _cart.forEach((cartItem, cartIndex) => {
-      global.globalData.drinksInfo.forEach((drinkItem, drinkIndex) => {
-        if (cartItem['drinkID'] == drinkItem['drinkID']) {
-          cartItem['drinkName'] = drinkItem['drinkName']
-          cartItem['imgLink'] = drinkItem['imgLink']
-          cartItem['categoryID'] = drinkItem['categoryID']
-        }
-      })
-      global.globalData.categoriesInfo.forEach((categoryItem, categoryIndex) => {
-        if (cartItem['categoryID'] == categoryItem['categoryID']) {
-          cartItem['categoryName'] = categoryItem['categoryName']
-        }
-      })
-    })
     this.setData({
-      cart: _cart
+      cart: global.globalData.cart
     })
+  },
+  /**
+   * 复选图标响应事件
+   */
+  handleCheck: function (e) {
+    var index = e['currentTarget']['dataset']['cardindex']
+    global.checkItem(index)
+    this.syncCart()
+  },
+  /**
+   * 计数器响应事件
+   */
+  handleCount: function (e) {
+    var index = e['currentTarget']['dataset']['cardindex']
+    if (e['detail']['count'] == 0) {
+      global.removeFromCart(index)
+    } else {
+      global.modifyCountOfItem(index, e['detail']['count'])
+    }
+    this.syncCart()
   }
 })

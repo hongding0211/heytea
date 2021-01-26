@@ -1,9 +1,88 @@
 /* pages/cart/cart.wxss */
 
-.orders-title {
-    margin-left: 40rpx !important;
-    margin-top: 35rpx !important;
+.cart-container{
+    padding-top: 40rpx;
+    padding-bottom: 20rpx;
+}
+
+.card{
+    height: 220rpx !important;
     margin-bottom: 20rpx !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.card-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-image{
+    width: 160rpx;
+    height: 160rpx;
+}
+
+.card-text-price-container{
+    margin-left: 20rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 450rpx;
+}
+
+.card-text-title{
+    font-size: medium;
+    font-weight: 600;
+    margin-bottom: 5rpx;
+}
+
+.card-text-option{
     font-size: small;
     color: #b6b6b6;
+    margin-bottom: 30rpx;
+}
+
+.card-price-conter-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 400rpx;
+}
+
+.card-price-text{
+    font-size: medium;
+}
+
+  
+ .card-conter{
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    width: 30rpx !important;
+    font-size: medium !important;
+    font-weight: 900 !important;
+  }
+ 
+  .card-symbol-conter{
+    margin: 5rpx !important;
+    padding: 15rpx !important;
+    width: 10rpx !important;
+    height: 10rpx !important;
+    color:#ffffff !important;
+    background-color: #DBA871 !important;
+    border-radius: 50% !important;
+  }
+ 
+  .card-conter-disable{
+    margin: 5rpx !important;
+    padding: 10rpx !important;
+    width: 20rpx !important;
+    height: 20rpx !important;
+    color: #b6b6b6 !important;
+    background-color: #ffffff !important;
+    border-radius: 50% !important;
+    border-color: #b6b6b6 !important;
   }
