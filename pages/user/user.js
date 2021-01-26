@@ -14,7 +14,9 @@ Page({
     transactionDetail: {},
     drinksInfo: [],
     categoriesInfo: [],
-    contentHeight: 0
+    contentHeight: 0,
+    justTappedIndex: 0,
+    tapped: false
   },
 
   /**
@@ -22,9 +24,9 @@ Page({
    */
   onLoad: function (options) {
     wx.getSystemInfo({
-      success: (result)=>{
+      success: (result) => {
         this.setData({
-          contentHeight: result.windowHeight*750/result.windowWidth
+          contentHeight: result.windowHeight * 750 / result.windowWidth
         })
       }
     })
@@ -142,13 +144,47 @@ Page({
           },
           success: res => {
             if (res['data']['code'] == 200) {
+              // 修饰数据
+              res['data']['data']['transactions'].forEach((transactionItem, transactionIndex) => {
+                var totalPrice = 0
+                var count = 0
+                transactionItem['transactionTime'] = global.timeConverter(transactionItem['transactionTime'])
+                transactionItem['drinks'].forEach((drinkItem, drinkIndex) => {
+                  global.globalData.drinksInfo.forEach((drinkInfoItem, drinkInfoIndex) => {
+                    if (drinkInfoItem['drinkID'] == drinkItem['drinkID']) {
+                      drinkItem['imgLink'] = drinkInfoItem['imgLink']
+                      totalPrice += drinkItem['price'] * drinkItem['amount']
+                      count += drinkItem['amount']
+                    }
+                  })
+                })
+                transactionItem['totalPrice'] = totalPrice
+                transactionItem['count'] = count
+              })
               this.setData({
-                transactionDetail: res['data']['data']
+                transactionDetail: res['data']['data']['transactions']
               })
             }
           }
         })
       }
+    })
+  },
+  /**
+   * 点击卡片
+   */
+  handleTapCard: function (e) {
+    this.setData({
+      justTappedIndex: e['currentTarget']['dataset']['index'],
+      tapped: true
+    })
+  },
+  /**
+   * 点击退出
+   */
+  handleExitDetail: function () {
+    this.setData({
+      tapped: false
     })
   }
 })

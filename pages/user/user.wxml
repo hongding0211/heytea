@@ -35,8 +35,30 @@
 
 	<!-- 历史订单显示 -->
 	<scroll-view style="height:{{contentHeight-290}}rpx" scroll-y="{{true}}" enable-back-to-top="true">
-		<view class="orders-title">历史订单</view>
-
+		<view class="orders-title">历史订单 ({{transactionDetail.length}})</view>
+		<l-card wx:for="{{transactionDetail}}" l-class="order-card" plaintext="true" data-index="{{index}}" bind:tap="handleTapCard">
+			<view class="order-card-container">
+				<view class="order-card-title-container">
+					<text style="color: #333333; font-weight:600; margin-botton:5rpx; font-size: small">单号：{{item['fetchCode']}}</text>
+					<text style="color: #b6b6b6; font-size: x-small">{{item['transactionTime']}}</text>
+				</view>
+				<view class="order-card-mid-container">
+					<view style="width: 70%" scroll-x="{{true}}">
+						<image
+						 class="order-card-image"
+						 mode="aspectFill"
+						 wx:for="{{item['drinks']}}"
+						 wx:for-item="drinksItem"
+						 src="{{drinksItem['imgLink']}}"
+						/>
+					</view>
+					<view class="order-card-price-container">
+						<text style="color: #333333; font-weight:600; margin-botton:10rpx; font-size: small">￥{{item['totalPrice']}}</text>
+						<text style="color: #b6b6b6; font-size: x-small">共{{item['count']}}件</text>
+					</view>
+				</view>
+			</view>
+		</l-card>
 		<l-loadmore
 		 show="{{true}}"
 		 type="end"
@@ -48,3 +70,38 @@
 	</scroll-view>
 </view>
 
+<van-popup
+ show="{{tapped}}"
+ position="center"
+ bind:close="handleExitDetail"
+ round="true"
+ closeable="true"
+>
+	<view class="popup-card">
+		<l-card l-class="popup-title-card" plaintext="true">
+			<view class="popup-card-container">
+				<view class="popup-title-main">订单已完成</view>
+				<view class="popup-title-sub">感谢您对 Heytea 的支持，欢迎再次光临</view>
+			</view>
+		</l-card>
+		<scroll-view style="height:{{transactionDetail[justTappedIndex]['drinks'].length<=3?latestCommittedInfo['drinks'].length*110:400}}rpx" class="popup-scroll-view" scroll-y="{{true}}">
+			<view wx:for="{{transactionDetail[justTappedIndex]['drinks']}}" class="popup-drink-info">
+				<view class="popup-drink-info-text">
+					<view class="popup-drink-info-text-title">{{item['drinkName']}}</view>
+				</view>
+				<view class="popup-drink-info-text-price">×{{item['amount']}}</view>
+				<view class="popup-drink-info-text-price">￥{{item['price']*item['amount']}}</view>
+			</view>
+		</scroll-view>
+		<view class="popup-totalprice">
+			<view>合计</view>
+			<view>￥{{transactionDetail[justTappedIndex]['totalPrice']}}</view>
+		</view>
+		<view class="divLine" />
+		<view class="popup-transactionInfo">
+			<view class="popup-transactionInfo-text">取单号码：{{transactionDetail[justTappedIndex]['fetchCode']}}</view>
+			<view class="popup-transactionInfo-text">下单时间：{{transactionDetail[justTappedIndex]['transactionTime']}}</view>
+			<view class="popup-transactionInfo-text">订单编号：{{transactionDetail[justTappedIndex]['transactionID']}}</view>
+		</view>
+	</view>
+</van-popup>
