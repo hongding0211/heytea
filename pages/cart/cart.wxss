@@ -1,1 +1,9 @@
 /* pages/cart/cart.wxss */
+
+.orders-title {
+    margin-left: 40rpx !important;
+    margin-top: 35rpx !important;
+    margin-bottom: 20rpx !important;
+    font-size: small;
+    color: #b6b6b6;
+  }

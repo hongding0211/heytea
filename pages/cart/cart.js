@@ -1,11 +1,14 @@
 // pages/cart/cart.js
+
+var global = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    cart: [],
   },
 
   /**
@@ -25,8 +28,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function () {    
+    this.syncCart()
   },
 
   /**
@@ -63,4 +66,27 @@ Page({
   onShareAppMessage: function () {
 
   },
+  /**
+   * 修改购物车信息，以便更好生成
+   */
+  syncCart: function () {
+    var _cart = global.globalData.cart
+    _cart.forEach((cartItem, cartIndex) => {
+      global.globalData.drinksInfo.forEach((drinkItem, drinkIndex) => {
+        if (cartItem['drinkID'] == drinkItem['drinkID']) {
+          cartItem['drinkName'] = drinkItem['drinkName']
+          cartItem['imgLink'] = drinkItem['imgLink']
+          cartItem['categoryID'] = drinkItem['categoryID']
+        }
+      })
+      global.globalData.categoriesInfo.forEach((categoryItem, categoryIndex) => {
+        if (cartItem['categoryID'] == categoryItem['categoryID']) {
+          cartItem['categoryName'] = categoryItem['categoryName']
+        }
+      })
+    })
+    this.setData({
+      cart: _cart
+    })
+  }
 })

@@ -192,9 +192,8 @@ Page({
       'sugarOption': this.data.sugarOption[this.data.sugarChecked],
       'tempOption': this.data.tempOption[this.data.tempChecked]
     }
+    global.add2Cart(order)
     this.resetFlag()
-
-    console.log(order)
   },
   /**
    * 点击计数器
