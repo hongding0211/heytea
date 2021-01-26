@@ -16,7 +16,8 @@ Page({
     categoriesInfo: [],
     contentHeight: 0,
     justTappedIndex: 0,
-    tapped: false
+    tapped: false,
+    dataFetched: false
   },
 
   /**
@@ -135,6 +136,9 @@ Page({
    * 获取用户订单信息
    */
   fetchTransactionDetail: function () {
+    this.setData({
+      dataFetched: false
+    })
     wx.login({
       success: (loginRes) => {
         wx.request({
@@ -143,6 +147,9 @@ Page({
             code: loginRes.code
           },
           success: res => {
+            this.setData({
+              dataFetched: true
+            })
             if (res['data']['code'] == 200) {
               // 修饰数据
               res['data']['data']['transactions'].forEach((transactionItem, transactionIndex) => {

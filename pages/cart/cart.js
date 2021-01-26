@@ -129,77 +129,87 @@ Page({
    */
   handleCheckOut: function () {
     wx.vibrateShort()
-    var drinksOut = []
-    var drinksRemain = []
-    global.globalData.cart.forEach((item, index) => {
-      if (item['checked']) {
-        drinksOut.push(item)
-      } else {
-        drinksRemain.push(item)
-      }
-    })
-    if (drinksOut.length > 0) {
-      this.setData({
-        isCommitting: true
-      })
-      var params = ""
-      drinksOut.forEach((v, k) => {
-        params += (
-          "&drinkID=" + v['drinkID'] + "&"
-          + "count=" + (v['count']) + "&"
-          + "sugarOption=" + (v['sugarOption']) + "&"
-          + "tempOption=" + (v['tempOption'])
-        )
-      })
-      wx.login({
-        success: (loginRes) => {
-          params = "code=" + loginRes.code + params
-          var urlstr = global.globalData.serverURL + '/orderDrink?' + params
-          wx.request({
-            url: urlstr,
-            success: (result) => {
-              console.log(result)
-              if (result['data']['code'] == 200) {
-                global.modifyCart(drinksRemain)
-                // 包装一下订单详情，以供之后使用
-                var transactionDetail = {
-                  'fetchCode': result['data']['data']['fetchCode'],
-                  'transactionID': result['data']['data']['transactionID'],
-                  'transactionTime': global.timeConverter(result['data']['data']['transactionTime']),
-                  'drinks': result['data']['data']['drinks']
-                }
-                var totalPrice = 0
-                transactionDetail.drinks.forEach((drinkItem, drinkIndex) => {
-                  global.globalData.drinksInfo.forEach((drinkInfoItem, drinkInfoIndex) => {
-                    if (drinkInfoItem['drinkID'] == drinkItem['drinkID']) {
-                      drinkItem['drinkName'] = drinkInfoItem['drinkName']
-                      drinkItem['imgLink'] = drinkInfoItem['imgLink']
-                      drinkItem['price'] = drinkInfoItem['price']
-                      totalPrice += drinkItem['price'] * drinkItem['amount']
-                    }
-                  })
-                })
-                transactionDetail['totalPrice'] = totalPrice
-                this.setData({
-                  latestCommittedInfo: transactionDetail,
-                  commitSucess: true                  
-                })
-              } else {
-                Toast.fail('提交失败')
-              }
-            },
-            fail: () => {
-              Toast.fail('提交失败')
-            },
-            complete: () => {
-              this.setData({
-                isCommitting: false
-              })
-              this.syncCart()
-            }
-          });
+    // 未登录引导先登录
+    if (!global.globalData.isLogin) {
+      Toast.fail('请先登录')
+      setTimeout(()=>{
+        wx.switchTab({
+          url: '/pages/user/user'
+        })
+      },1000)      
+    } else {
+      var drinksOut = []
+      var drinksRemain = []
+      global.globalData.cart.forEach((item, index) => {
+        if (item['checked']) {
+          drinksOut.push(item)
+        } else {
+          drinksRemain.push(item)
         }
       })
+      if (drinksOut.length > 0) {
+        this.setData({
+          isCommitting: true
+        })
+        var params = ""
+        drinksOut.forEach((v, k) => {
+          params += (
+            "&drinkID=" + v['drinkID'] + "&"
+            + "count=" + (v['count']) + "&"
+            + "sugarOption=" + (v['sugarOption']) + "&"
+            + "tempOption=" + (v['tempOption'])
+          )
+        })
+        wx.login({
+          success: (loginRes) => {
+            params = "code=" + loginRes.code + params
+            var urlstr = global.globalData.serverURL + '/orderDrink?' + params
+            wx.request({
+              url: urlstr,
+              success: (result) => {
+                console.log(result)
+                if (result['data']['code'] == 200) {
+                  global.modifyCart(drinksRemain)
+                  // 包装一下订单详情，以供之后使用
+                  var transactionDetail = {
+                    'fetchCode': result['data']['data']['fetchCode'],
+                    'transactionID': result['data']['data']['transactionID'],
+                    'transactionTime': global.timeConverter(result['data']['data']['transactionTime']),
+                    'drinks': result['data']['data']['drinks']
+                  }
+                  var totalPrice = 0
+                  transactionDetail.drinks.forEach((drinkItem, drinkIndex) => {
+                    global.globalData.drinksInfo.forEach((drinkInfoItem, drinkInfoIndex) => {
+                      if (drinkInfoItem['drinkID'] == drinkItem['drinkID']) {
+                        drinkItem['drinkName'] = drinkInfoItem['drinkName']
+                        drinkItem['imgLink'] = drinkInfoItem['imgLink']
+                        drinkItem['price'] = drinkInfoItem['price']
+                        totalPrice += drinkItem['price'] * drinkItem['amount']
+                      }
+                    })
+                  })
+                  transactionDetail['totalPrice'] = totalPrice
+                  this.setData({
+                    latestCommittedInfo: transactionDetail,
+                    commitSucess: true
+                  })
+                } else {
+                  Toast.fail('提交失败')
+                }
+              },
+              fail: () => {
+                Toast.fail('提交失败')
+              },
+              complete: () => {
+                this.setData({
+                  isCommitting: false
+                })
+                this.syncCart()
+              }
+            });
+          }
+        })
+      }
     }
   },
   /**

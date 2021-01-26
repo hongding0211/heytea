@@ -115,9 +115,9 @@
 .order-card-price-container{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-evenly;
-  margin-right: 20rpx;
+  margin-right: 10rpx;
 }
 
 

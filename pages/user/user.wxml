@@ -53,8 +53,8 @@
 						/>
 					</view>
 					<view class="order-card-price-container">
-						<text style="color: #333333; font-weight:600; margin-botton:10rpx; font-size: small">￥{{item['totalPrice']}}</text>
-						<text style="color: #b6b6b6; font-size: x-small">共{{item['count']}}件</text>
+						<text style="color: #333333; font-weight:600; margin-botton:10rpx; font-size: medium">￥{{item['totalPrice']}}</text>
+						<text style="color: #b6b6b6; font-size: small">共{{item['count']}}件</text>
 					</view>
 				</view>
 			</view>
@@ -105,3 +105,11 @@
 		</view>
 	</view>
 </van-popup>
+
+<l-loading
+ size="mini"
+ color="#333333"
+ l-container-class="l-container"
+ show="{{!dataFetched&&isLogin}}"
+ full-screen="{{true}}"
+/>
