@@ -105,11 +105,3 @@
 		</view>
 	</view>
 </van-popup>
-
-<l-loading
- size="mini"
- color="#333333"
- l-container-class="l-container"
- show="{{!dataFetched&&isLogin}}"
- full-screen="{{true}}"
-/>
