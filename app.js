@@ -71,10 +71,8 @@ App({
     }
     this.updateCartIcon()
   },
-  modifyCart: function (i, data) {
-    if (this.globalData.cart.length > i) {
-      this.globalData.cart[i] = data
-    }
+  modifyCart: function (data) {
+    this.globalData.cart = data
     this.updateCartIcon()
   },
   updateCartIcon: function () {
@@ -97,5 +95,10 @@ App({
     if (this.globalData.cart.length > i && count >= 1) {
       this.globalData.cart[i]['count'] = count
     }
+  },
+  timeConverter: function (timeStr) {
+    return timeStr.substr(0, 4) + "/" + timeStr.substr(4, 2) + "/" + timeStr.substr(6, 2) + " " + timeStr.substr(8, 2) + ":" + timeStr.substr(10, 2)
   }
 })
+
+

@@ -11,7 +11,12 @@ Page({
     cart: [],
     currentTapIndex: 0,
     contentHeight: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    isCommitting: false,
+    latestCommittedInfo: {},
+    commitSucess: false,
+    commitSucess: false,
+    tapDuringCommitting: false
   },
 
   /**
@@ -38,7 +43,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.syncCart()    
+    this.syncCart()
     this.calcTotalPrice()
   },
 
@@ -80,10 +85,10 @@ Page({
    * 同步购物车记录
    */
   syncCart: function () {
-    this.calcTotalPrice()
     this.setData({
       cart: global.globalData.cart
     })
+    this.calcTotalPrice()
   },
   /**
    * 复选图标响应事件
@@ -108,15 +113,114 @@ Page({
   /**
    * 计算总价
    */
-  calcTotalPrice: function() {
+  calcTotalPrice: function () {
     var price = 0
-    this.data.cart.forEach((item,index)=>{
-      if(item['checked']){
-        price+=item['count']*item['price']
+    this.data.cart.forEach((item, index) => {
+      if (item['checked']) {
+        price += item['count'] * item['price']
       }
     })
     this.setData({
       totalPrice: price
+    })
+  },
+  /**
+   * 结算购物车
+   */
+  handleCheckOut: function () {
+    var drinksOut = []
+    var drinksRemain = []
+    global.globalData.cart.forEach((item, index) => {
+      if (item['checked']) {
+        drinksOut.push(item)
+      } else {
+        drinksRemain.push(item)
+      }
+    })
+    if (drinksOut.length > 0) {
+      this.setData({
+        isCommitting: true
+      })
+      var params = ""
+      drinksOut.forEach((v, k) => {
+        params += (
+          "&drinkID=" + v['drinkID'] + "&"
+          + "count=" + (v['count']) + "&"
+          + "sugarOption=" + (v['sugarOption']) + "&"
+          + "tempOption=" + (v['tempOption'])
+        )
+      })
+      wx.login({
+        success: (loginRes) => {
+          params = "code=" + loginRes.code + params
+          var urlstr = global.globalData.serverURL + '/orderDrink?' + params
+          wx.request({
+            url: urlstr,
+            success: (result) => {
+              console.log(result)
+              if (result['data']['code'] == 200) {
+                global.modifyCart(drinksRemain)
+                // 包装一下订单详情，以供之后使用
+                var transactionDetail = {
+                  'fetchCode': result['data']['data']['fetchCode'],
+                  'transactionID': result['data']['data']['transactionID'],
+                  'transactionTime': global.timeConverter(result['data']['data']['transactionTime']),
+                  'drinks': result['data']['data']['drinks']
+                }
+                var totalPrice = 0
+                transactionDetail.drinks.forEach((drinkItem, drinkIndex) => {
+                  global.globalData.drinksInfo.forEach((drinkInfoItem, drinkInfoIndex) => {
+                    if (drinkInfoItem['drinkID'] == drinkItem['drinkID']) {
+                      drinkItem['drinkName'] = drinkInfoItem['drinkName']
+                      drinkItem['imgLink'] = drinkInfoItem['imgLink']
+                      drinkItem['price'] = drinkInfoItem['price']
+                      totalPrice += drinkItem['price'] * drinkItem['amount']
+                    }
+                  })
+                })
+                transactionDetail['totalPrice'] = totalPrice
+                this.setData({
+                  latestCommittedInfo: transactionDetail,
+                  commitSucess: true
+                })
+              } else {
+                this.setData({
+                  commitFail: true
+                })
+              }
+            },
+            fail: () => {
+              this.setData({
+                commitFail: true
+              })
+            },
+            complete: () => {
+              this.setData({
+                isCommitting: false
+              })
+              this.syncCart()
+            }
+          });
+        }
+      })
+    }
+  },
+  /**
+   * 退出popup响应
+   */
+  handleExitDetail: function () {
+
+    this.setData({
+      commitSucess: false,
+      commitFail: false
+    })
+  },
+  /**
+   * 提交时点击
+   */
+  handleTapDuringCommitting: function () {
+    this.setData({
+      tapDuringCommitting: true
     })
   }
 })

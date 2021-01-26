@@ -45,9 +45,67 @@
 		<view class="cart-botton-price">
 			￥{{totalPrice}}
 		</view>
-		<l-button l-label-class="button-text" bg-color="#DBA871" shape="square" height="100">
+		<l-button
+		 l-label-class="button-text"
+		 bg-color="#DBA871"
+		 shape="square"
+		 height="100"
+		 width="230"
+		 loading="{{isCommitting}}"
+		 bind:lintap="handleCheckOut"
+		>
 			结算
 		</l-button>
 	</view>
 </view>
+
+<van-popup
+ show="{{commitSucess||commitFail}}"
+ position="center"
+ bind:close="handleExitDetail"
+ round="true"
+ closeable="true"
+>
+	<view class="popup-card">
+		<l-card l-class="popup-fetchcode-card" plaintext="true">
+			<view class="popup-card-container">
+				<view class="popup-fetchcode-title">取单号</view>
+				<view class="popup-fetchcode">{{latestCommittedInfo['fetchCode']}}</view>
+			</view>
+		</l-card>
+		<scroll-view class="popup-scroll-view" scroll-y="{{true}}">
+			<view wx:for="{{latestCommittedInfo['drinks']}}" class="popup-drink-info">
+				<view class="popup-drink-info-text">
+					<view class="popup-drink-info-text-title">{{item['drinkName']}}</view>
+					<view class="popup-drink-info-text-option">{{item['sugarOption']}} {{item['tempOption']}}</view>
+				</view>
+				<view class="popup-drink-info-text-price">×{{item['amount']}}</view>
+				<view class="popup-drink-info-text-price">￥{{item['price']*item['amount']}}</view>
+			</view>
+		</scroll-view>
+		<view class="popup-totalprice">
+			<view>合计</view>
+			<view>￥{{latestCommittedInfo['totalPrice']}}</view>
+		</view>
+		<view class="divLine" />
+		<view class="popup-transactionInfo">
+			<view class="popup-transactionInfo-text">下单时间：{{latestCommittedInfo['transactionTime']}}</view>
+			<view class="popup-transactionInfo-text">订单编号：{{latestCommittedInfo['transactionID']}}</view>
+		</view>
+	</view>
+</van-popup>
+
+<l-mask
+ show="{{isCommitting}}"
+ opacity="0"
+ locked="{{true}}"
+ bind:lintap="handleTapDuringCommitting"
+/>
+
+<l-toast
+ show="{{tapDuringCommitting}}"
+ icon="cart"
+ placement="right"
+ title="订单提交中"
+/>
 
