@@ -175,7 +175,6 @@
 }
 
 .popup-scroll-view{
-    height: 400rpx;
     margin-bottom: 60rpx;
 }
 

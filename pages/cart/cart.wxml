@@ -60,7 +60,7 @@
 </view>
 
 <van-popup
- show="{{commitSucess||commitFail}}"
+ show="{{commitSucess}}"
  position="center"
  bind:close="handleExitDetail"
  round="true"
@@ -73,7 +73,7 @@
 				<view class="popup-fetchcode">{{latestCommittedInfo['fetchCode']}}</view>
 			</view>
 		</l-card>
-		<scroll-view class="popup-scroll-view" scroll-y="{{true}}">
+		<scroll-view style="height:{{latestCommittedInfo['drinks'].length<=3?latestCommittedInfo['drinks'].length*110:400}}rpx" class="popup-scroll-view" scroll-y="{{true}}">
 			<view wx:for="{{latestCommittedInfo['drinks']}}" class="popup-drink-info">
 				<view class="popup-drink-info-text">
 					<view class="popup-drink-info-text-title">{{item['drinkName']}}</view>
@@ -102,10 +102,5 @@
  bind:lintap="handleTapDuringCommitting"
 />
 
-<l-toast
- show="{{tapDuringCommitting}}"
- icon="cart"
- placement="right"
- title="订单提交中"
-/>
+<van-toast id="van-toast" />
 

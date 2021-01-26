@@ -1,5 +1,7 @@
 // pages/cart/cart.js
 
+import Toast from '../../miniprogram_npm/@vant/weapp//toast/toast';
+
 var global = getApp()
 
 Page({
@@ -14,9 +16,7 @@ Page({
     totalPrice: 0,
     isCommitting: false,
     latestCommittedInfo: {},
-    commitSucess: false,
-    commitSucess: false,
-    tapDuringCommitting: false
+    commitSucess: false
   },
 
   /**
@@ -128,6 +128,7 @@ Page({
    * 结算购物车
    */
   handleCheckOut: function () {
+    wx.vibrateShort()
     var drinksOut = []
     var drinksRemain = []
     global.globalData.cart.forEach((item, index) => {
@@ -181,18 +182,14 @@ Page({
                 transactionDetail['totalPrice'] = totalPrice
                 this.setData({
                   latestCommittedInfo: transactionDetail,
-                  commitSucess: true
+                  commitSucess: true                  
                 })
               } else {
-                this.setData({
-                  commitFail: true
-                })
+                Toast.fail('提交失败')
               }
             },
             fail: () => {
-              this.setData({
-                commitFail: true
-              })
+              Toast.fail('提交失败')
             },
             complete: () => {
               this.setData({
@@ -209,18 +206,14 @@ Page({
    * 退出popup响应
    */
   handleExitDetail: function () {
-
     this.setData({
-      commitSucess: false,
-      commitFail: false
+      commitSucess: false
     })
   },
   /**
    * 提交时点击
    */
   handleTapDuringCommitting: function () {
-    this.setData({
-      tapDuringCommitting: true
-    })
+    Toast.fail('订单提交中')
   }
 })
