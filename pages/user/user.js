@@ -115,7 +115,7 @@ Page({
                 this.setData({
                   isLogin: true
                 })
-                this.global.globalData.isLogin = true
+                global.globalData.isLogin = true
               }
             })
           }
@@ -131,6 +131,7 @@ Page({
     this.setData({
       isClickedButton: true
     })
+    this.fetchTransactionDetail()
   },
   /**
    * 获取用户订单信息
