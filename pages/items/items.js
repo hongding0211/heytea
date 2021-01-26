@@ -21,7 +21,8 @@ Page({
       '正常冰', '少冰', '去冰', '常温', '热'
     ],
     sugarChecked: 0,
-    tempChecked: 0
+    tempChecked: 0,
+    currentCount: 1
   },
 
   /**
@@ -148,14 +149,21 @@ Page({
     })
   },
   /**
-   * 点击背景推出详细页面
+   * 重置饮品描述信息
    */
-  handleExitDetail: function () {
+  resetFlag: function () {
     this.setData({
       sugarChecked: 0,
       tempChecked: 0,
-      tapped: false
+      tapped: false,
+      currentCount: 1
     })
+  },
+  /**
+   * 点击背景推出详细页面
+   */
+  handleExitDetail: function () {
+    this.resetFlag()
   },
   /**
    * 点击糖度
@@ -171,6 +179,29 @@ Page({
   handleTempCheck: function (e) {
     this.setData({
       tempChecked: e['currentTarget']['dataset']['tempchecked']
+    })
+  },
+  /**
+   * 添加到购物车
+   */
+  handleAdd2Cart: function () {
+    var order = {
+      'drinkID': this.data.currentChoseDrink['drinkID'],
+      'price': this.data.currentChoseDrink['price'],
+      'count': this.data.currentCount,
+      'sugarOption': this.data.sugarOption[this.data.sugarChecked],
+      'tempOption': this.data.tempOption[this.data.tempChecked]
+    }
+    this.resetFlag()
+
+    console.log(order)
+  },
+  /**
+   * 点击计数器
+   */
+  handleCount: function (e) {
+    this.setData({
+      currentCount: e['detail']['count']
     })
   }
 })

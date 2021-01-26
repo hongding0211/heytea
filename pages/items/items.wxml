@@ -31,9 +31,7 @@
 		 image="{{categoryItem}}"
 		 pic-placement="top"
 		>
-
 			<scroll-view scroll-y="true" style="height:100%" enable-back-to-top="true">
-
 				<view class="category-title">{{categoryItem['categoryName']}}</view>
 				<!-- 人气榜 -->
 				<view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
@@ -65,7 +63,6 @@
 						</view>
 					</l-card>
 				</view>
-
 				<!-- 按照分类添加 -->
 				<view wx:for="{{drinksInfo}}" wx:for-item="drinkItem">
 					<l-card
@@ -96,7 +93,6 @@
 						</view>
 					</l-card>
 				</view>
-
 			</scroll-view>
 		</l-tabpanel>
 	</l-tabs>
@@ -158,9 +154,10 @@
 					 l-count-class="popup-conter"
 					 l-symbol-class="popup-symbol-conter"
 					 l-disabled-class="popup-conter-disable"
-					 count="1"
+					 count="{{currentCount}}"
 					 min="1"
 					 max="1000"
+					 bind:lintap="handleCount"
 					/>
 				</view>
 				<l-button
@@ -168,6 +165,7 @@
 				 bg-color="#DBA871"
 				 width="550"
 				 height="70"
+				 bind:lintap="handleAdd2Cart"
 				>
 					加入购物车
 				</l-button>

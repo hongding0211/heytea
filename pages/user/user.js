@@ -112,6 +112,7 @@ Page({
                 this.setData({
                   isLogin: true
                 })
+                this.global.globalData.isLogin = true
               }
             })
           }
