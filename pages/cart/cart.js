@@ -45,6 +45,12 @@ Page({
   onShow: function () {
     this.syncCart()
     this.calcTotalPrice()
+
+    // wx.login({
+    //   success: res=>{
+    //     console.log(res.code)
+    //   }
+    // })
   },
 
   /**
