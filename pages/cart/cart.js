@@ -210,6 +210,7 @@ Page({
                 this.setData({
                   isCommitting: false
                 })
+                wx.vibrateShort()
                 this.syncCart()
               }
             });
